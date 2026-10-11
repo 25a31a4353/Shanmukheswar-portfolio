@@ -4,34 +4,55 @@
 
 @layer base {
   :root {
+    --color-bg: #F8FAFC;
+    --color-surface: #FFFFFF;
+    --color-border: rgba(15, 23, 42, 0.08);
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #475569;
+    --color-accent: #0284C7;
+  }
+
+  .dark {
     --color-bg: #07090e;
     --color-surface: #0c0e15;
     --color-border: rgba(255, 255, 255, 0.08);
+    --color-text-primary: #F8FAFC;
+    --color-text-secondary: #94A3B8;
+    --color-accent: #38BDF8;
   }
 
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
   }
 
   body {
-    background-color: #07090e;
-    color: #e2e8f0;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
     letter-spacing: -0.011em;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   ::selection {
+    background-color: rgba(14, 165, 233, 0.2);
+    color: #0369a1;
+  }
+
+  .dark ::selection {
     background-color: rgba(14, 165, 233, 0.25);
     color: #38bdf8;
   }
 
   /* Accessible keyboard focus ring */
   *:focus-visible {
-    outline: 2px solid #38bdf8;
+    outline: 2px solid #0284c7;
     outline-offset: 2px;
     border-radius: 4px;
+  }
+
+  .dark *:focus-visible {
+    outline: 2px solid #38bdf8;
   }
 
   /* Sleek custom scrollbar */
@@ -41,15 +62,27 @@
   }
 
   ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  .dark ::-webkit-scrollbar-track {
     background: #07090e;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #1e2433;
+    background: #cbd5e1;
     border-radius: 3px;
   }
 
+  .dark ::-webkit-scrollbar-thumb {
+    background: #1e2433;
+  }
+
   ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
     background: #333d54;
   }
 }
@@ -59,34 +92,72 @@
   .bg-grid-refined {
     background-size: 40px 40px;
     background-image: 
+      linear-gradient(to right, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.045) 1px, transparent 40px);
+  }
+
+  .dark .bg-grid-refined {
+    background-image: 
       linear-gradient(to right, rgba(255, 255, 255, 0.032) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.032) 1px, transparent 40px);
   }
 
+  /* Reusable fine dot texture */
+  .bg-dots-refined {
+    background-size: 24px 24px;
+    background-image: radial-gradient(rgba(15, 23, 42, 0.07) 1px, transparent 1px);
+  }
+
+  .dark .bg-dots-refined {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  }
+
   /* Refined, expensive card styling */
   .card-premium {
-    background: #0c0e15;
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  .dark .card-premium {
+    background: #0c0e15;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: none;
+  }
+
   .card-premium:hover {
+    border-color: rgba(2, 132, 199, 0.35);
+    background: #ffffff;
+    box-shadow: 0 14px 28px -8px rgba(15, 23, 42, 0.08), 0 0 15px -4px rgba(14, 165, 233, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .dark .card-premium:hover {
     border-color: rgba(56, 189, 248, 0.3);
     background: #0f121b;
     box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.7), 0 0 15px -4px rgba(14, 165, 233, 0.08);
-    transform: translateY(-2px);
   }
 
   /* Frosted glass with subtle edge */
   .nav-blur {
-    background: rgba(7, 9, 14, 0.85);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .dark .nav-blur {
+    background: rgba(7, 9, 14, 0.85);
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   }
 
   /* Precision spotlight radial gradient */
   .hero-spotlight {
+    background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.12) 0%, rgba(248, 250, 252, 0) 70%);
+  }
+
+  .dark .hero-spotlight {
     background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.1) 0%, rgba(7, 9, 14, 0) 70%);
   }
 
@@ -94,10 +165,16 @@
   .badge-interactive {
     transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
   .badge-interactive:hover {
+    border-color: rgba(2, 132, 199, 0.35);
+    background-color: #f0f9ff;
+    transform: translateY(-1px);
+  }
+
+  .dark .badge-interactive:hover {
     border-color: rgba(56, 189, 248, 0.35);
     background-color: #111522;
-    transform: translateY(-1px);
   }
 }
 

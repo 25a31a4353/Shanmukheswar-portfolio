@@ -64,8 +64,8 @@ export const HeroQuantumVisual: React.FC = () => {
         x: 0,
         y: 0,
         radius,
-        color: i % 3 === 0 ? '#38bdf8' : 'rgba(255, 255, 255, 0.85)',
-        alpha: 0.35 + (i % 3 === 0 ? 0.4 : 0.25),
+        color: '', // evaluated dynamically in render based on theme
+        alpha: 0.45 + (i % 3 === 0 ? 0.35 : 0.2),
         orbitRadius,
         angle,
         speed,
@@ -95,6 +95,7 @@ export const HeroQuantumVisual: React.FC = () => {
       time += 0.012;
       ctx.clearRect(0, 0, width, height);
 
+      const isDark = document.documentElement.classList.contains('dark');
       const centerX = width / 2;
       const centerY = height / 2;
 
@@ -112,7 +113,9 @@ export const HeroQuantumVisual: React.FC = () => {
           0,
           Math.PI * 2
         );
-        ctx.strokeStyle = idx === 1 ? 'rgba(56, 189, 248, 0.16)' : 'rgba(255, 255, 255, 0.05)';
+        ctx.strokeStyle = idx === 1 
+          ? (isDark ? 'rgba(56, 189, 248, 0.2)' : 'rgba(2, 132, 199, 0.25)')
+          : (isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(15, 23, 42, 0.08)');
         ctx.lineWidth = 1;
         ctx.setLineDash([3, 5]);
         ctx.stroke();
@@ -122,14 +125,14 @@ export const HeroQuantumVisual: React.FC = () => {
       // Subtle central core
       ctx.beginPath();
       ctx.arc(centerX, centerY, 5, 0, Math.PI * 2);
-      ctx.fillStyle = '#38bdf8';
-      ctx.shadowColor = '#38bdf8';
+      ctx.fillStyle = isDark ? '#38bdf8' : '#0284c7';
+      ctx.shadowColor = isDark ? '#38bdf8' : '#0284c7';
       ctx.shadowBlur = 10;
       ctx.fill();
       ctx.shadowBlur = 0;
 
       // Update & Draw Particles
-      particles.forEach((p) => {
+      particles.forEach((p, i) => {
         p.angle += p.speed;
         const currentRadius = p.orbitRadius + Math.sin(time * 1.5 + p.layer) * 4;
         
@@ -154,7 +157,11 @@ export const HeroQuantumVisual: React.FC = () => {
 
         ctx.beginPath();
         ctx.arc(finalX, finalY, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
+        if (isDark) {
+          ctx.fillStyle = i % 3 === 0 ? '#38bdf8' : 'rgba(255, 255, 255, 0.85)';
+        } else {
+          ctx.fillStyle = i % 3 === 0 ? '#0284c7' : '#475569';
+        }
         ctx.globalAlpha = p.alpha;
         ctx.fill();
         ctx.globalAlpha = 1;
@@ -168,11 +175,13 @@ export const HeroQuantumVisual: React.FC = () => {
           const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
 
           if (dist < 75) {
-            const opacity = (1 - dist / 75) * 0.22;
+            const opacity = (1 - dist / 75) * (isDark ? 0.25 : 0.22);
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
+            ctx.strokeStyle = isDark 
+              ? `rgba(56, 189, 248, ${opacity})` 
+              : `rgba(2, 132, 199, ${opacity})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -237,14 +246,14 @@ export const HeroQuantumVisual: React.FC = () => {
       />
 
       {/* Minimal Engineering Telemetry Strip */}
-      <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-xs z-20 px-3 py-1.5 sm:py-2 rounded-lg bg-[#0c0e15] border border-white/[0.08] shadow-xl shadow-black/80 flex items-center justify-between text-[11px] font-mono">
+      <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-xs z-20 px-3 py-1.5 sm:py-2 rounded-lg bg-white/95 dark:bg-[#0c0e15] border border-slate-200/90 dark:border-white/[0.08] shadow-lg shadow-slate-200/50 dark:shadow-xl dark:shadow-black/80 backdrop-blur-md flex items-center justify-between text-[11px] font-mono">
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <Activity className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-          <span className="text-slate-400">Coherence:</span>
-          <span className="text-slate-200 font-semibold">{telemetry.coherence}</span>
+          <Activity className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400 shrink-0" />
+          <span className="text-slate-500 dark:text-slate-400">Coherence:</span>
+          <span className="text-slate-900 dark:text-slate-200 font-semibold">{telemetry.coherence}</span>
         </div>
-        <div className="text-slate-600">/</div>
-        <div className="text-sky-300 font-medium truncate max-w-[120px] sm:max-w-[150px]">
+        <div className="text-slate-300 dark:text-slate-600">/</div>
+        <div className="text-sky-700 dark:text-sky-300 font-medium truncate max-w-[120px] sm:max-w-[150px]">
           {telemetry.state}
         </div>
       </div>

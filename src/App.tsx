@@ -14,26 +14,28 @@ import { ResumeModal } from './components/ResumeModal';
 import { ScrollReveal } from './components/ScrollReveal';
 import { AmbientBackground } from './components/AmbientBackground';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
+import { ThemeProvider } from './context/ThemeContext';
 
 export function App() {
   const [resumeOpen, setResumeOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col selection:bg-sky-500/20 selection:text-sky-300 relative overflow-x-hidden">
-      
-      {/* Accessible Skip Link for Keyboard Navigation */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sky-500 focus:text-slate-950 focus:font-semibold focus:rounded-md focus:shadow-lg focus:outline-none"
-      >
-        Skip to main content
-      </a>
+    <ThemeProvider>
+      <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#07090e] text-slate-900 dark:text-slate-100 flex flex-col selection:bg-sky-500/20 selection:text-sky-700 dark:selection:text-sky-300 relative overflow-x-hidden transition-colors duration-200">
+        
+        {/* Accessible Skip Link for Keyboard Navigation */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sky-600 focus:text-white focus:font-semibold focus:rounded-md focus:shadow-lg focus:outline-none"
+        >
+          Skip to main content
+        </a>
 
-      {/* Precision Reading Progress Bar (Isolated RAF, zero root re-renders) */}
-      <ScrollProgressBar />
+        {/* Precision Reading Progress Bar (Isolated RAF, zero root re-renders) */}
+        <ScrollProgressBar />
 
-      {/* Persistent Technical Background Grid */}
-      <div className="fixed inset-0 bg-grid-refined pointer-events-none opacity-20 -z-20" aria-hidden="true" />
+        {/* Persistent Technical Background Grid */}
+        <div className="fixed inset-0 bg-grid-refined pointer-events-none opacity-40 dark:opacity-20 -z-20" aria-hidden="true" />
 
       {/* Gentle, Tasteful Ambient Background Spotlight */}
       <AmbientBackground />
@@ -93,7 +95,8 @@ export function App() {
       {/* Recruiter Resume Modal */}
       <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
 
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 

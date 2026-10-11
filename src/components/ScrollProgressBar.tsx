@@ -43,7 +43,7 @@ export const ScrollProgressBar: React.FC = () => {
     >
       <div 
         ref={barRef}
-        className="w-full h-full bg-sky-400 origin-left transition-transform duration-75 will-change-transform"
+        className="w-full h-full bg-sky-600 dark:bg-sky-400 origin-left transition-transform duration-75 will-change-transform"
         style={{ transform: 'scaleX(0)' }}
       />
     </div>

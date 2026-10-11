@@ -48,7 +48,7 @@ export const AmbientBackground: React.FC = () => {
       {/* Gentle, ultra-low opacity soft spotlight */}
       <div
         ref={glowRef}
-        className="absolute top-0 left-0 w-[550px] h-[550px] rounded-full bg-sky-500/[0.035] blur-[100px] will-change-transform"
+        className="absolute top-0 left-0 w-[550px] h-[550px] rounded-full bg-sky-500/[0.05] dark:bg-sky-500/[0.035] blur-[100px] will-change-transform"
         style={{
           transform: 'translate3d(50vw, 300px, 0) translate(-50%, -50%)'
         }}

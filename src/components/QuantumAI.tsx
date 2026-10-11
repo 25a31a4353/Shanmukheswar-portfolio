@@ -99,6 +99,7 @@ export const QuantumAI: React.FC = () => {
       time += 0.015;
       ctx.clearRect(0, 0, width, height);
 
+      const isDark = document.documentElement.classList.contains('dark');
       const scale = Math.min(1, Math.max(0.65, width / 520));
       const neuralCenterX = Math.max(45, width * 0.20);
       const quantumCenterX = Math.min(width - 80, width * 0.70);
@@ -114,7 +115,7 @@ export const QuantumAI: React.FC = () => {
         const wireY = wireSpacing * (w + 1);
 
         // Circuit rail label
-        ctx.fillStyle = '#94a3b8';
+        ctx.fillStyle = isDark ? '#94a3b8' : '#64748b';
         ctx.textAlign = 'right';
         ctx.fillText(wireLabels[w], quantumCenterX - 75 * scale, wireY + 4);
 
@@ -122,7 +123,7 @@ export const QuantumAI: React.FC = () => {
         ctx.beginPath();
         ctx.moveTo(quantumCenterX - 65 * scale, wireY);
         ctx.lineTo(width - 20, wireY);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.09)';
+        ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.09)' : 'rgba(15, 23, 42, 0.1)';
         ctx.lineWidth = 1;
         ctx.stroke();
 
@@ -139,14 +140,20 @@ export const QuantumAI: React.FC = () => {
           // Gate box
           ctx.beginPath();
           ctx.rect(gate.x - 11, wireY - 11, 22, 22);
-          ctx.fillStyle = isHovered ? '#1e293b' : '#0c0e15';
-          ctx.strokeStyle = isHovered ? '#38bdf8' : 'rgba(56, 189, 248, 0.3)';
+          ctx.fillStyle = isHovered 
+            ? (isDark ? '#1e293b' : '#f0f9ff') 
+            : (isDark ? '#0c0e15' : '#ffffff');
+          ctx.strokeStyle = isHovered 
+            ? (isDark ? '#38bdf8' : '#0284c7') 
+            : (isDark ? 'rgba(56, 189, 248, 0.3)' : 'rgba(2, 132, 199, 0.4)');
           ctx.lineWidth = 1;
           ctx.fill();
           ctx.stroke();
 
           // Gate text
-          ctx.fillStyle = isHovered ? '#38bdf8' : '#e2e8f0';
+          ctx.fillStyle = isHovered 
+            ? (isDark ? '#38bdf8' : '#0284c7') 
+            : (isDark ? '#e2e8f0' : '#0f172a');
           ctx.textAlign = 'center';
           ctx.fillText(gate.name, gate.x, wireY + 4);
         });
@@ -156,7 +163,7 @@ export const QuantumAI: React.FC = () => {
           ctx.beginPath();
           ctx.moveTo(quantumCenterX + 25 * scale, wireY);
           ctx.lineTo(quantumCenterX + 25 * scale, wireSpacing * 2);
-          ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+          ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.4)' : 'rgba(2, 132, 199, 0.45)';
           ctx.lineWidth = 1;
           ctx.stroke();
         }
@@ -198,8 +205,10 @@ export const QuantumAI: React.FC = () => {
             ctx.moveTo(n1.x, n1.y);
             ctx.lineTo(n2.x, n2.y);
             ctx.strokeStyle = isNearMouse
-              ? 'rgba(56, 189, 248, 0.35)'
-              : `rgba(255, 255, 255, ${0.04 + Math.sin(time + i + j) * 0.02})`;
+              ? (isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(2, 132, 199, 0.4)')
+              : (isDark 
+                  ? `rgba(255, 255, 255, ${0.04 + Math.sin(time + i + j) * 0.02})` 
+                  : `rgba(15, 23, 42, ${0.06 + Math.sin(time + i + j) * 0.02})`);
             ctx.lineWidth = isNearMouse ? 1.2 : 0.8;
             ctx.stroke();
           }
@@ -220,7 +229,7 @@ export const QuantumAI: React.FC = () => {
           n.x + (targetWireX - n.x) * 0.5, targetWireY,
           targetWireX, targetWireY
         );
-        ctx.strokeStyle = 'rgba(56, 189, 248, 0.18)';
+        ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.18)' : 'rgba(2, 132, 199, 0.28)';
         ctx.setLineDash([4, 6]);
         ctx.stroke();
         ctx.restore();
@@ -232,8 +241,12 @@ export const QuantumAI: React.FC = () => {
 
         ctx.beginPath();
         ctx.arc(node.x, node.y, isHovered ? 5.5 : 4, 0, Math.PI * 2);
-        ctx.fillStyle = isHovered ? '#38bdf8' : '#07090e';
-        ctx.strokeStyle = isHovered ? '#38bdf8' : 'rgba(255, 255, 255, 0.3)';
+        ctx.fillStyle = isHovered 
+          ? (isDark ? '#38bdf8' : '#0284c7') 
+          : (isDark ? '#07090e' : '#ffffff');
+        ctx.strokeStyle = isHovered 
+          ? (isDark ? '#38bdf8' : '#0284c7') 
+          : (isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(15, 23, 42, 0.25)');
         ctx.lineWidth = 1.5;
         ctx.fill();
         ctx.stroke();
@@ -252,7 +265,7 @@ export const QuantumAI: React.FC = () => {
 
         ctx.beginPath();
         ctx.arc(currentX, currentWireY, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = '#38bdf8';
+        ctx.fillStyle = isDark ? '#38bdf8' : '#0284c7';
         ctx.globalAlpha = p.alpha;
         ctx.fill();
         ctx.globalAlpha = 1;
@@ -267,7 +280,7 @@ export const QuantumAI: React.FC = () => {
       ];
 
       ctx.font = '10px JetBrains Mono, monospace';
-      ctx.fillStyle = 'rgba(148, 163, 184, 0.35)';
+      ctx.fillStyle = isDark ? 'rgba(148, 163, 184, 0.35)' : 'rgba(100, 116, 139, 0.45)';
       ctx.textAlign = 'center';
       notations.forEach((item) => {
         ctx.fillText(item.text, item.x, item.y);
@@ -303,37 +316,37 @@ export const QuantumAI: React.FC = () => {
   }, []);
 
   return (
-    <section id="quantum-ai" className="py-24 sm:py-32 relative border-t border-white/[0.05] overflow-hidden">
+    <section id="quantum-ai" className="py-24 sm:py-32 relative border-t border-slate-200/80 dark:border-white/[0.05] overflow-hidden bg-slate-50/50 dark:bg-transparent">
       
       {/* Subtle Ambient Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[30rem] bg-sky-500/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[30rem] bg-sky-500/10 dark:bg-sky-500/5 rounded-full blur-3xl -z-10 pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-12">
-          <div className="font-mono text-xs text-sky-400 uppercase tracking-widest mb-3">
+          <div className="font-mono text-xs text-sky-600 dark:text-sky-400 uppercase tracking-widest mb-3">
             // 06 · SIGNATURE FRONTIER
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight font-display">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight font-display">
             Where AI Meets Quantum
           </h2>
-          <p className="text-slate-400 text-base mt-2">
+          <p className="text-slate-600 dark:text-slate-400 text-base mt-2">
             Connecting machine intelligence, mathematical representations, and quantum mechanical principles into next-generation computational frameworks.
           </p>
         </div>
 
         {/* Core Statement Banner — Signature Identity */}
-        <div className="mb-14 p-6 sm:p-8 rounded-xl bg-gradient-to-r from-[#0c0e15] via-[#0e121c] to-[#0c0e15] border border-sky-500/25 relative shadow-xl">
+        <div className="mb-14 p-6 sm:p-8 rounded-xl bg-gradient-to-r from-sky-50 via-white to-sky-50 dark:bg-gradient-to-r dark:from-[#0c0e15] dark:via-[#0e121c] dark:to-[#0c0e15] border border-sky-200 dark:border-sky-500/25 relative shadow-lg shadow-sky-100/50 dark:shadow-xl">
           <div className="flex items-start gap-4">
-            <div className="p-2.5 rounded-lg bg-sky-500/10 border border-sky-500/25 text-sky-400 shrink-0 mt-0.5">
+            <div className="p-2.5 rounded-lg bg-sky-100 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/25 text-sky-700 dark:text-sky-400 shrink-0 mt-0.5">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[11px] font-mono uppercase tracking-widest text-sky-400 mb-1">
+              <div className="text-[11px] font-mono uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-1">
                 Vision & Exploration
               </div>
-              <blockquote className="text-lg sm:text-xl text-white font-display font-medium leading-relaxed">
+              <blockquote className="text-lg sm:text-xl text-slate-800 dark:text-white font-display font-medium leading-relaxed">
                 "I'm exploring how intelligent systems and emerging computational paradigms can shape the next generation of technology."
               </blockquote>
             </div>
@@ -350,34 +363,34 @@ export const QuantumAI: React.FC = () => {
                 onClick={() => setActiveStage(idx)}
                 className={`text-left p-5 rounded-xl border transition-all duration-200 relative ${
                   isActive
-                    ? 'bg-[#0f131d] border-sky-500/50 shadow-lg shadow-sky-950/20'
-                    : 'bg-[#0c0e15] border-white/[0.07] hover:border-white/20'
+                    ? 'bg-white dark:bg-[#0f131d] border-sky-500 shadow-lg shadow-sky-100 dark:shadow-sky-950/20'
+                    : 'bg-white dark:bg-[#0c0e15] border-slate-200/80 dark:border-white/[0.07] hover:border-sky-300 dark:hover:border-white/20 shadow-sm'
                 }`}
               >
                 {/* Stage Index & Indicator */}
                 <div className="flex items-center justify-between mb-3 text-xs font-mono">
-                  <span className={isActive ? 'text-sky-400 font-bold' : 'text-slate-500'}>
+                  <span className={isActive ? 'text-sky-600 dark:text-sky-400 font-bold' : 'text-slate-400 dark:text-slate-500'}>
                     0{idx + 1}
                   </span>
                   {idx < 3 && (
-                    <ArrowDown className="w-3.5 h-3.5 text-slate-600 md:-rotate-90" />
+                    <ArrowDown className="w-3.5 h-3.5 text-slate-400 dark:text-slate-600 md:-rotate-90" />
                   )}
                 </div>
 
                 {/* Stage Title */}
-                <h3 className="text-sm font-bold text-white font-display">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">
                   {stage.title}
                 </h3>
-                <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">
                   {stage.subtitle}
                 </div>
 
-                <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
                   {stage.description}
                 </p>
 
                 {/* Mathematical notation footer */}
-                <div className="mt-3 pt-2 border-t border-white/[0.05] text-[10px] font-mono text-sky-300 truncate">
+                <div className="mt-3 pt-2 border-t border-slate-100 dark:border-white/[0.05] text-[10px] font-mono text-sky-700 dark:text-sky-300 truncate">
                   {stage.notation}
                 </div>
               </button>
@@ -388,22 +401,22 @@ export const QuantumAI: React.FC = () => {
         {/* Signature Interactive Convergence Visual (Canvas + Circuit Grid) */}
         <div 
           ref={containerRef}
-          className="relative w-full rounded-xl bg-[#0c0e15] border border-white/[0.08] overflow-hidden shadow-2xl p-4 sm:p-6"
+          className="relative w-full rounded-xl bg-white dark:bg-[#0c0e15] border border-slate-200/90 dark:border-white/[0.08] overflow-hidden shadow-xl shadow-slate-200/70 dark:shadow-2xl p-4 sm:p-6"
         >
           {/* Header of Visual Workbench */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-white/[0.07] gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 dark:border-white/[0.07] gap-2">
             <div className="flex items-center gap-2 text-xs font-mono">
-              <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
-              <span className="text-white font-semibold">Interactive Neural-Quantum Synthesis Space</span>
+              <span className="w-2 h-2 rounded-full bg-sky-600 dark:bg-sky-400 animate-pulse" />
+              <span className="text-slate-900 dark:text-white font-semibold">Interactive Neural-Quantum Synthesis Space</span>
             </div>
-            <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[11px] font-mono text-slate-400">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[11px] font-mono text-slate-500 dark:text-slate-400">
               <span className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-slate-400" /> Neural Layers
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-sky-400" /> Quantum Rails
+                <span className="w-2 h-2 rounded-full bg-sky-600 dark:bg-sky-400" /> Quantum Rails
               </span>
-              <span className="text-slate-600 hidden sm:inline">|</span>
+              <span className="text-slate-300 dark:text-slate-600 hidden sm:inline">|</span>
               <span className="text-slate-500 hidden sm:inline">Hover over canvas to illuminate pathways</span>
             </div>
           </div>
@@ -419,11 +432,11 @@ export const QuantumAI: React.FC = () => {
           </div>
 
           {/* Bottom Descriptive Caption */}
-          <div className="pt-3 border-t border-white/[0.07] flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono text-slate-400 gap-2">
+          <div className="pt-3 border-t border-slate-100 dark:border-white/[0.07] flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 gap-2">
             <div>
-              Active Concept Stage: <span className="text-white font-semibold">{stages[activeStage].title}</span> — {stages[activeStage].tag}
+              Active Concept Stage: <span className="text-slate-900 dark:text-white font-semibold">{stages[activeStage].title}</span> — {stages[activeStage].tag}
             </div>
-            <div className="text-[11px] text-slate-500">
+            <div className="text-[11px] text-slate-400 dark:text-slate-500">
               Non-simulated visual representation of computational interests
             </div>
           </div>
