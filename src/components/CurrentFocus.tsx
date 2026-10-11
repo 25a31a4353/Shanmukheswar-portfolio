@@ -16,15 +16,15 @@ export const CurrentFocus: React.FC = () => {
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'Brain':
-        return <Brain className="w-5 h-5 text-sky-600 dark:text-sky-400" />;
+        return <Brain className="w-5 h-5 text-sky-600" />;
       case 'Sparkles':
-        return <Sparkles className="w-5 h-5 text-amber-500 dark:text-amber-400" />;
+        return <Sparkles className="w-5 h-5 text-amber-500" />;
       case 'Atom':
-        return <Atom className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />;
+        return <Atom className="w-5 h-5 text-indigo-600" />;
       case 'Trophy':
-        return <Trophy className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />;
+        return <Trophy className="w-5 h-5 text-emerald-600" />;
       default:
-        return <Terminal className="w-5 h-5 text-sky-600 dark:text-sky-400" />;
+        return <Terminal className="w-5 h-5 text-sky-600" />;
     }
   };
 
@@ -32,25 +32,25 @@ export const CurrentFocus: React.FC = () => {
     switch (status) {
       case 'Active':
         return {
-          bg: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-500/30',
-          dot: 'bg-emerald-500 dark:bg-emerald-400',
+          bg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+          dot: 'bg-emerald-500',
           ping: true
         };
       case 'Learning / Building':
         return {
-          bg: 'bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-950/40 dark:text-sky-400 dark:border-sky-500/30',
-          dot: 'bg-sky-500 dark:bg-sky-400',
+          bg: 'bg-sky-50 text-sky-700 border-sky-200',
+          dot: 'bg-sky-500',
           ping: true
         };
       case 'Exploring':
         return {
-          bg: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-500/30',
-          dot: 'bg-indigo-500 dark:bg-indigo-400',
+          bg: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+          dot: 'bg-indigo-500',
           ping: false
         };
       default:
         return {
-          bg: 'bg-slate-50 text-slate-600 border-slate-200 dark:bg-[#07090e] dark:text-slate-400 dark:border-white/[0.08]',
+          bg: 'bg-slate-50 text-slate-600 border-slate-200',
           dot: 'bg-slate-400',
           ping: false
         };
@@ -58,32 +58,32 @@ export const CurrentFocus: React.FC = () => {
   };
 
   return (
-    <section id="currently-building" className="py-24 sm:py-32 relative border-t border-slate-200/80 dark:border-white/[0.05]">
+    <section id="currently-building" className="py-20 sm:py-28 relative border-t border-slate-200/80 bg-slate-50/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        {/* Section Header with Ranade Font */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div className="max-w-2xl">
-            <div className="font-mono text-xs text-sky-600 dark:text-sky-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-              <Radio className="w-3.5 h-3.5 animate-pulse text-sky-600 dark:text-sky-400" />
-              <span>What I'm exploring right now</span>
+            <div className="eyebrow-chip inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-3">
+              <Radio className="w-3.5 h-3.5 animate-pulse text-sky-600" />
+              <span>06 · NOW BUILDING</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight font-display">
-              Currently Building
+            <h2 className="font-ranade text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
+              Currently <span className="text-sky-700">Building.</span>
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-base mt-2">
-              Active engineering testbenches, conceptual explorations, and live sprint commitments.
+            <p className="text-slate-600 text-sm sm:text-base mt-2">
+              Active engineering prototypes, conceptual testbenches, and live commitments.
             </p>
           </div>
 
-          <div className="text-xs font-mono text-slate-600 dark:text-slate-400 flex items-center gap-2 bg-white dark:bg-[#0c0e15] px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-white/[0.06] shadow-sm self-start md:self-end">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
-            <span>Real-time Engineering Focus</span>
+          <div className="text-xs font-mono text-slate-600 flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-slate-200/90 shadow-xs self-start md:self-end">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-medium">Active Sprint Focus</span>
           </div>
         </div>
 
         {/* 4 Interactive Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {currentlyBuildingData.map((item) => {
             const statusConfig = getStatusBadge(item.status);
             const isHovered = activeCardId === item.id;
@@ -93,56 +93,46 @@ export const CurrentFocus: React.FC = () => {
                 key={item.id}
                 onMouseEnter={() => setActiveCardId(item.id)}
                 onMouseLeave={() => setActiveCardId(null)}
-                className={`group relative p-6 sm:p-7 rounded-xl bg-white dark:bg-[#0c0e15] border transition-all duration-200 hover:-translate-y-1 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-xl hover:shadow-slate-200/70 dark:shadow-none dark:hover:shadow-black/70 flex flex-col justify-between ${
+                className={`group relative p-5 sm:p-6 rounded-2xl bg-white border transition-all duration-200 hover:-translate-y-0.5 shadow-xs hover:shadow-md flex flex-col justify-between ${
                   isHovered
-                    ? 'border-sky-500/50 dark:border-sky-500/40 bg-sky-50/20 dark:bg-[#0f121b]'
-                    : 'border-slate-200/80 dark:border-white/[0.07]'
+                    ? 'border-sky-400 bg-sky-50/10'
+                    : 'border-slate-200/90'
                 }`}
               >
                 <div>
-                  {/* Top: Icon & Status Indicator */}
-                  <div className="flex items-center justify-between gap-3 mb-4">
-                    <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-[#07090e] border border-slate-200/80 dark:border-white/[0.08] group-hover:border-sky-500/40 transition-colors">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="p-2 rounded-lg bg-slate-50 border border-slate-100">
                       {getIcon(item.iconName)}
                     </div>
-
-                    {/* Status Indicator Pill */}
-                    <div className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-mono border ${statusConfig.bg}`}>
-                      <span className="relative flex h-2 w-2">
-                        {statusConfig.ping && (
-                          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${statusConfig.dot}`} />
-                        )}
-                        <span className={`relative inline-flex rounded-full h-2 w-2 ${statusConfig.dot}`} />
-                      </span>
-                      <span className="font-medium">{item.status}</span>
-                    </div>
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-mono border font-medium ${statusConfig.bg}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${statusConfig.dot} ${statusConfig.ping ? 'animate-pulse' : ''}`} />
+                      <span>{item.status}</span>
+                    </span>
                   </div>
 
-                  {/* Topic Title */}
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors flex items-center justify-between">
-                    <span>{item.topic}</span>
-                    <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-sky-600 dark:group-hover:text-sky-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                  <h3 className="font-ranade text-base sm:text-lg font-bold text-slate-900 group-hover:text-sky-700 transition-colors leading-snug">
+                    {item.topic}
                   </h3>
 
-                  {/* Short Description */}
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-600 mt-2 mb-4 leading-relaxed line-clamp-2">
                     {item.description}
                   </p>
                 </div>
 
-                {/* Focus Areas Badges */}
-                {item.focusAreas && (
-                  <div className="flex flex-wrap items-center gap-1.5 mt-5 pt-4 border-t border-slate-100 dark:border-white/[0.06]">
-                    {item.focusAreas.map((area) => (
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <div className="flex flex-wrap gap-1.5">
+                    {(item.focusAreas || []).map((area) => (
                       <span
                         key={area}
-                        className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-50 text-slate-600 border border-slate-200/80 dark:bg-[#07090e] dark:text-slate-400 dark:border-white/[0.06] group-hover:border-sky-300 dark:group-hover:border-sky-500/20 group-hover:text-slate-800 dark:group-hover:text-slate-300 transition-colors"
+                        className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-50 text-slate-600 border border-slate-200/80 font-medium"
                       >
                         {area}
                       </span>
                     ))}
                   </div>
-                )}
+
+                  <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-sky-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                </div>
               </div>
             );
           })}

@@ -57,7 +57,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               <div className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold mb-1">
                 CSE (AI) UNDERGRADUATE & BUILDER
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08] font-display break-words">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08] font-ranade break-words">
                 Shanmukheswar<br />
                 Medicharla<span className="text-sky-400">.</span>
               </h1>
@@ -65,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
 
             {/* Headline & Bio Intro */}
             <div className="animate-entrance delay-200 space-y-2 max-w-xl">
-              <p className="text-lg sm:text-xl font-medium text-white font-display">
+              <p className="text-lg sm:text-xl font-medium text-white font-ranade">
                 AI Engineer in the Making. Driven to build what matters.
               </p>
               <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
@@ -128,7 +128,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between z-10 text-white font-mono text-[11px]">
                 <div>
                   <div className="text-[10px] text-sky-300 uppercase tracking-wider">AI Engineer</div>
-                  <div className="font-bold text-sm tracking-tight font-display">Shanmukheswar M.</div>
+                  <div className="font-bold text-sm tracking-tight font-ranade">Shanmukheswar M.</div>
                 </div>
                 <div className="text-right text-[10px] uppercase tracking-wider text-slate-300">
                   STUDENT. BUILDER.<br />

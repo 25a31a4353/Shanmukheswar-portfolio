@@ -9,21 +9,21 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-100/80 dark:bg-[#07090e] py-12 relative">
+    <footer className="border-t border-slate-200/80 bg-slate-100/70 py-12 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
           {/* Brand Monogram & Meta */}
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-md bg-white dark:bg-[#0e111a] border border-slate-200/90 dark:border-white/[0.1] flex items-center justify-center font-mono text-sky-600 dark:text-sky-400 font-bold text-xs shadow-xs">
+            <div className="w-7 h-7 rounded-lg bg-white border border-slate-200/90 flex items-center justify-center font-mono text-sky-600 font-bold text-xs shadow-xs">
               SM
             </div>
             <div>
-              <div className="font-display font-bold text-slate-900 dark:text-white text-sm">
+              <div className="font-ranade font-bold text-slate-900 text-sm">
                 {personalInfo.name}
               </div>
               <div className="text-xs text-slate-500 font-mono">
-                Artificial Intelligence & Quantum Computing
+                Artificial Intelligence & System Builds
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
               href={personalInfo.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/[0.04] transition-colors"
+              className="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
               aria-label="GitHub Profile"
             >
               <GithubIcon className="w-4 h-4" />
@@ -43,14 +43,14 @@ export const Footer: React.FC = () => {
               href={personalInfo.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/[0.04] transition-colors"
+              className="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
               aria-label="LinkedIn Profile"
             >
               <LinkedinIcon className="w-4 h-4" />
             </a>
             <a
               href={`mailto:${personalInfo.socials.email}`}
-              className="p-2 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/[0.04] transition-colors"
+              className="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
               aria-label="Direct Email"
             >
               <Mail className="w-4 h-4" />
@@ -65,7 +65,7 @@ export const Footer: React.FC = () => {
 
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-md bg-white dark:bg-[#0c0e15] border border-slate-200/90 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all shadow-sm"
+              className="p-2 rounded-lg bg-white border border-slate-200/90 hover:border-slate-300 text-slate-600 hover:text-slate-900 transition-all shadow-xs"
               aria-label="Back to Top"
               id="footer-back-to-top"
             >

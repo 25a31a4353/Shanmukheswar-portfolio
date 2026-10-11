@@ -45,8 +45,8 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         {/* Modal Action Header */}
         <div className="px-6 py-3.5 bg-slate-50 dark:bg-[#07090e] border-b border-slate-200/90 dark:border-white/[0.08] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-sky-600 dark:bg-sky-400" />
-            <h3 id="resume-title" className="text-xs font-bold text-slate-900 dark:text-white font-display">
+            <span className="w-2 h-2 rounded-full bg-sky-600" />
+            <h3 id="resume-title" className="font-ranade text-xs font-bold text-slate-900">
               Curriculum Vitae — {personalInfo.name}
             </h3>
           </div>
@@ -54,15 +54,15 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-3 py-1 rounded bg-white hover:bg-slate-100 dark:bg-[#11141f] dark:hover:bg-[#181c2a] text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200/90 dark:border-white/[0.08] transition-colors shadow-xs"
+              className="flex items-center gap-1.5 px-3 py-1 rounded bg-white hover:bg-slate-100 text-xs font-mono text-slate-700 hover:text-slate-900 border border-slate-200/90 transition-colors shadow-xs"
               aria-label="Print or export Curriculum Vitae to PDF"
             >
-              <Printer className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+              <Printer className="w-3.5 h-3.5 text-sky-600" />
               <span>Print / PDF</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1 rounded text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-white hover:bg-slate-100 dark:bg-[#11141f] dark:hover:bg-[#181c2a] border border-slate-200/80 dark:border-transparent transition-colors"
+              className="p-1 rounded text-slate-500 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200/80 transition-colors"
               aria-label="Close modal"
             >
               <X className="w-4 h-4" />
@@ -71,13 +71,13 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         </div>
 
         {/* Scrollable Content */}
-        <div className="overflow-y-auto p-6 sm:p-8 space-y-7 bg-white dark:bg-[#0c0e15] font-sans text-slate-800 dark:text-slate-200">
+        <div className="overflow-y-auto p-6 sm:p-8 space-y-7 bg-white font-sans text-slate-800">
           
           {/* Header */}
-          <div className="border-b border-slate-200/80 dark:border-white/[0.08] pb-5">
+          <div className="border-b border-slate-200/80 pb-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white font-display">
+                <h2 className="font-ranade text-2xl font-bold text-slate-900">
                   {personalInfo.name}
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
@@ -103,7 +103,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
           {/* Education */}
           <div>
-            <h2 className="text-xs font-mono uppercase tracking-wider text-sky-700 dark:text-sky-400 mb-2 border-b border-slate-200/80 dark:border-white/[0.06] pb-1">
+            <h2 className="font-ranade text-xs uppercase tracking-wider text-sky-700 mb-2 border-b border-slate-200/80 pb-1 font-bold">
               Education
             </h2>
             <div className="space-y-2 text-xs">
@@ -133,7 +133,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
           {/* Core Technical Stack */}
           <div>
-            <h2 className="text-xs font-mono uppercase tracking-wider text-sky-700 dark:text-sky-400 mb-2 border-b border-slate-200/80 dark:border-white/[0.06] pb-1">
+            <h2 className="font-ranade text-xs uppercase tracking-wider text-sky-700 mb-2 border-b border-slate-200/80 pb-1 font-bold">
               Technical Arsenal
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
@@ -166,7 +166,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
           {/* Featured Systems */}
           <div>
-            <h2 className="text-xs font-mono uppercase tracking-wider text-sky-700 dark:text-sky-400 mb-3 border-b border-slate-200/80 dark:border-white/[0.06] pb-1">
+            <h2 className="font-ranade text-xs uppercase tracking-wider text-sky-700 mb-3 border-b border-slate-200/80 pb-1 font-bold">
               Featured Projects & Sprints
             </h2>
             <div className="space-y-4">

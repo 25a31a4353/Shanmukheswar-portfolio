@@ -19,7 +19,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
     { label: 'Projects', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     { label: 'Hackathons', href: '#achievements' },
-    { label: 'Quantum + AI', href: '#quantum-ai' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -36,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
         setIsOverHero(scrollY < 600);
       }
 
-      const sections = ['hero', 'about', 'projects', 'skills', 'achievements', 'quantum-ai', 'contact'];
+      const sections = ['hero', 'about', 'projects', 'skills', 'achievements', 'contact'];
       const scrollPosition = scrollY + 160;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -98,7 +97,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
           }`}>
             SM
           </div>
-          <span className={`font-display tracking-tight font-medium text-sm flex items-center gap-1.5 transition-colors ${
+          <span className={`font-ranade tracking-tight font-bold text-sm flex items-center gap-1.5 transition-colors ${
             isOverHero ? 'text-white' : 'text-slate-900'
           }`}>
             Shanmukheswar M.

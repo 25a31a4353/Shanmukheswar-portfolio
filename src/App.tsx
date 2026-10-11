@@ -6,7 +6,6 @@ import { Projects } from './components/Projects';
 import { Skills } from './components/Skills';
 import { Achievements } from './components/Achievements';
 import { Experience } from './components/Experience';
-import { QuantumAI } from './components/QuantumAI';
 import { CurrentFocus } from './components/CurrentFocus';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
@@ -73,17 +72,12 @@ export function App() {
           <Experience />
         </ScrollReveal>
 
-        {/* 7. Where AI Meets Quantum */}
-        <ScrollReveal>
-          <QuantumAI />
-        </ScrollReveal>
-
-        {/* 8. Currently Building */}
+        {/* 7. Currently Building */}
         <ScrollReveal>
           <CurrentFocus />
         </ScrollReveal>
 
-        {/* 9. Contact */}
+        {/* 8. Contact */}
         <ScrollReveal>
           <Contact />
         </ScrollReveal>

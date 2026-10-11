@@ -18,14 +18,14 @@ export const Skills: React.FC = () => {
 
   const getIcon = (name: string) => {
     switch (name) {
-      case 'Code2': return <Code2 className="w-4 h-4 text-sky-600 dark:text-sky-400" />;
-      case 'Brain': return <Brain className="w-4 h-4 text-sky-600 dark:text-sky-400" />;
-      case 'Sparkles': return <Sparkles className="w-4 h-4 text-sky-600 dark:text-sky-400" />;
-      case 'Atom': return <Atom className="w-4 h-4 text-sky-600 dark:text-sky-400" />;
-      case 'Server': return <Server className="w-4 h-4 text-sky-600 dark:text-sky-400" />;
-      case 'Cloud': return <Cloud className="w-4 h-4 text-sky-600 dark:text-sky-400" />;
-      case 'Wrench': return <Wrench className="w-4 h-4 text-sky-600 dark:text-sky-400" />;
-      default: return <Cpu className="w-4 h-4 text-sky-600 dark:text-sky-400" />;
+      case 'Code2': return <Code2 className="w-4 h-4 text-sky-600" />;
+      case 'Brain': return <Brain className="w-4 h-4 text-indigo-600" />;
+      case 'Sparkles': return <Sparkles className="w-4 h-4 text-amber-600" />;
+      case 'Atom': return <Atom className="w-4 h-4 text-sky-600" />;
+      case 'Server': return <Server className="w-4 h-4 text-teal-600" />;
+      case 'Cloud': return <Cloud className="w-4 h-4 text-blue-600" />;
+      case 'Wrench': return <Wrench className="w-4 h-4 text-slate-600" />;
+      default: return <Cpu className="w-4 h-4 text-sky-600" />;
     }
   };
 
@@ -47,47 +47,48 @@ export const Skills: React.FC = () => {
     .filter(cat => cat.skills.length > 0);
 
   return (
-    <section id="skills" className="py-24 sm:py-32 relative border-t border-slate-200/80 dark:border-white/[0.05]">
+    <section id="skills" className="py-20 sm:py-28 relative border-t border-slate-200/80 bg-[#F8FAFC]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        {/* Section Header with Ranade Font */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div className="max-w-2xl">
-            <div className="font-mono text-xs text-sky-600 dark:text-sky-400 uppercase tracking-widest mb-3">
-              // 03 · TECHNICAL ARSENAL
+            <div className="eyebrow-chip inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
+              <span>03 · TECHNICAL STACK</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight font-display">
-              Tools, Frameworks & Core Primitives.
+            <h2 className="font-ranade text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
+              Core Technical <span className="text-sky-700">Capabilities.</span>
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-base mt-2">
-              Curated stack for training models, orchestrating multi-agent loops, simulating quantum states, and shipping fast APIs.
+            <p className="text-slate-600 text-sm sm:text-base mt-2">
+              Curated stack for building autonomous agents, backend services, and quantum experiments.
             </p>
           </div>
 
           {/* Quick Search Input */}
-          <div className="relative w-full md:w-64">
-            <Search className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <div className="relative w-full md:w-60">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search stack..."
+              placeholder="Search tools..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               aria-label="Search technical stack"
-              className="w-full pl-9 pr-3 py-2 text-xs rounded-lg bg-white dark:bg-[#0c0e15] border border-slate-200/90 dark:border-white/[0.08] text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-sky-500 font-mono transition-colors shadow-sm"
+              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white border border-slate-200/90 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-sky-500 font-mono transition-colors shadow-xs"
             />
           </div>
         </div>
 
         {/* Category Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-4 mb-8 scrollbar-none">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-8 scrollbar-none">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all duration-150 active:scale-[0.98] ${
                 activeCategory === cat
-                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-semibold shadow-sm'
-                  : 'bg-white dark:bg-[#0c0e15] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/80 dark:border-white/[0.06] shadow-sm'
+                  ? 'bg-slate-900 text-white font-semibold shadow-xs'
+                  : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 shadow-xs'
               }`}
             >
               {cat}
@@ -100,35 +101,33 @@ export const Skills: React.FC = () => {
           {filteredCategories.map((category) => (
             <div
               key={category.title}
-              className="p-6 rounded-xl bg-white dark:bg-[#0c0e15] border border-slate-200/80 dark:border-white/[0.07] hover:border-sky-500/40 dark:hover:border-sky-500/35 hover:-translate-y-1 transition-all duration-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-xl hover:shadow-slate-200/70 dark:shadow-none dark:hover:shadow-black/60"
+              className="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-sky-400/60 hover:-translate-y-0.5 transition-all duration-200 shadow-xs hover:shadow-md"
             >
-              {/* Category Header */}
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 rounded-lg bg-sky-50 dark:bg-[#11141f] border border-sky-100 dark:border-white/[0.07]">
+              {/* Category Side Heading with Ranade */}
+              <div className="flex items-center gap-2.5 mb-3">
+                <div className="p-2 rounded-lg bg-slate-50 border border-slate-100 shrink-0">
                   {getIcon(category.iconName)}
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">
+                  <h3 className="font-ranade text-sm font-bold text-slate-900">
                     {category.title}
                   </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-400">
+                  <p className="text-xs text-slate-500 font-medium">
                     {category.description}
                   </p>
                 </div>
               </div>
 
-              {/* Badges Grid (NO percentage bars) */}
-              <div className="flex flex-wrap gap-2 pt-3 border-t border-slate-100 dark:border-white/[0.05]">
+              {/* Badges Grid */}
+              <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-100">
                 {category.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="badge-interactive inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 dark:bg-[#07090e] border border-slate-200/80 dark:border-white/[0.07] hover:border-sky-500/50 hover:text-sky-700 dark:hover:text-sky-300 transition-colors cursor-default"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200/80 text-xs font-medium text-slate-700 hover:border-sky-300 transition-colors cursor-default"
                   >
-                    <span className="text-xs font-medium text-slate-700 dark:text-slate-200">
-                      {skill.name}
-                    </span>
+                    <span>{skill.name}</span>
                     {skill.tag && (
-                      <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-sky-50 text-sky-700 border border-sky-200/70 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-500/20">
+                      <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-sky-50 text-sky-700 border border-sky-200/70 font-semibold">
                         {skill.tag}
                       </span>
                     )}
