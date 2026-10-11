@@ -88,7 +88,7 @@ export const projectsData: Project[] = [
     title: "Akashvani — Disaster Intelligence Platform",
     tagline: "AI-powered disaster risk intelligence with interactive India map visualization",
     category: "Disaster Intelligence",
-    role: "Team / Project Lead",
+    role: "Core Developer",
     description: "An AI-powered disaster intelligence platform focused on analyzing hazards, geographic information, population density, weather-related information, and disaster risk with an interactive India map.",
     problemSolved: "Integrates disparate environmental, meteorological, and demographic datasets into a centralized visualization platform to identify regional vulnerability hotspots and support proactive disaster mitigation.",
     technologies: ["Python", "Disaster Intelligence", "Geographic Visualization", "Hazard Analysis", "Weather Data", "Interactive India Map"],
