@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 
-type Theme = 'light' | 'dark';
+type Theme = 'light';
 
 interface ThemeContextType {
   theme: Theme;
@@ -11,39 +11,22 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    // Light is the default theme unless dark was explicitly saved
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark') return 'dark';
-      if (saved === 'light') return 'light';
-    }
-    return 'light';
-  });
-
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      root.style.colorScheme = 'dark';
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      root.style.colorScheme = 'light';
-      localStorage.setItem('theme', 'light');
-    }
-  }, [theme]);
+    // Enforce light theme globally for all content sections
+    root.classList.remove('dark');
+    root.style.colorScheme = 'light';
+    localStorage.removeItem('theme');
+  }, []);
 
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === 'light' ? 'dark' : 'light'));
+    // Fixed theme: Hero is dark, remaining whole website is light
   };
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-  };
+  const setTheme = () => {};
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme: 'light', toggleTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
