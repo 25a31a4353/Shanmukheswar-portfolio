@@ -38,12 +38,12 @@ export const ScrollProgressBar: React.FC = () => {
 
   return (
     <div 
-      className="fixed top-0 left-0 right-0 h-[2px] z-50 pointer-events-none origin-left"
+      className="fixed top-0 left-0 right-0 h-[2.5px] z-50 pointer-events-none origin-left"
       aria-hidden="true"
     >
       <div 
         ref={barRef}
-        className="w-full h-full bg-sky-600 dark:bg-sky-400 origin-left transition-transform duration-75 will-change-transform"
+        className="w-full h-full bg-gradient-to-r from-sky-600 via-sky-400 to-indigo-500 dark:from-sky-500 dark:via-cyan-400 dark:to-indigo-400 origin-left transition-transform duration-75 will-change-transform shadow-[0_1px_6px_rgba(14,165,233,0.45)]"
         style={{ transform: 'scaleX(0)' }}
       />
     </div>

@@ -6,11 +6,12 @@ import { Projects } from './components/Projects';
 import { Skills } from './components/Skills';
 import { Achievements } from './components/Achievements';
 import { Experience } from './components/Experience';
+import { QuantumNetworkBridge } from './components/motion/QuantumNetworkBridge';
+import { QuantumSection } from './components/QuantumSection';
 import { CurrentFocus } from './components/CurrentFocus';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ResumeModal } from './components/ResumeModal';
-import { ScrollReveal } from './components/ScrollReveal';
 import { AmbientBackground } from './components/AmbientBackground';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { ThemeProvider } from './context/ThemeContext';
@@ -36,52 +37,44 @@ export function App() {
         {/* Persistent Technical Background Grid */}
         <div className="fixed inset-0 bg-grid-refined pointer-events-none opacity-30 -z-20" aria-hidden="true" />
 
-      {/* Gentle, Tasteful Ambient Background Spotlight */}
-      <AmbientBackground />
+        {/* Gentle, Tasteful Ambient Background Spotlight */}
+        <AmbientBackground />
 
-      {/* Navbar */}
-      <Navbar onOpenResume={() => setResumeOpen(true)} />
+        {/* Navbar */}
+        <Navbar onOpenResume={() => setResumeOpen(true)} />
 
-      {/* Main Content Sections with Smooth Scroll Reveal */}
-      <main id="main-content" className="flex-1 flex flex-col focus:outline-none" tabIndex={-1}>
-        {/* 1. Hero (has own entrance keyframes) */}
-        <Hero onOpenResume={() => setResumeOpen(true)} />
+        {/* Main Content Sections with Continuous 3D Motion System */}
+        <main id="main-content" className="flex-1 flex flex-col focus:outline-none" tabIndex={-1}>
+          {/* 1. Hero (has own 3D scroll depth retreat & parallax grid) */}
+          <Hero onOpenResume={() => setResumeOpen(true)} />
 
-        {/* 2. About Me */}
-        <ScrollReveal>
+          {/* 2. About Me (perspective-reveal 3D exit into projects) */}
           <About />
-        </ScrollReveal>
 
-        {/* 3. Featured Projects */}
-        <ScrollReveal>
+          {/* 3. Featured Projects (depth-tunnel transition & tactile 3D cards) */}
           <Projects />
-        </ScrollReveal>
 
-        {/* 4. Skills / Technical Arsenal */}
-        <ScrollReveal>
+          {/* 4. Skills / Technical Arsenal (floating depth system & 3D tilt) */}
           <Skills />
-        </ScrollReveal>
 
-        {/* 5. Hackathons & Achievements */}
-        <ScrollReveal>
+          {/* 5. Hackathons & Achievements (physically constructed timeline & IBM 7th place emphasis) */}
           <Achievements />
-        </ScrollReveal>
 
-        {/* 6. Experience & Leadership */}
-        <ScrollReveal>
+          {/* 6. Experience & Leadership (3D execution cards) */}
           <Experience />
-        </ScrollReveal>
 
-        {/* 7. Currently Building */}
-        <ScrollReveal>
+          {/* 7. Achievements/Experience -> AI × Quantum Convergence Bridge */}
+          <QuantumNetworkBridge />
+
+          {/* 8. Where AI Meets Quantum (interactive 3D Bloch sphere & research pillars) */}
+          <QuantumSection />
+
+          {/* 9. Currently Building (staggered 3D cards & calm transition) */}
           <CurrentFocus />
-        </ScrollReveal>
 
-        {/* 8. Contact */}
-        <ScrollReveal>
+          {/* 10. Contact (final calm destination settling) */}
           <Contact />
-        </ScrollReveal>
-      </main>
+        </main>
 
       {/* 10. Footer */}
       <Footer />

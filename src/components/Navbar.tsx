@@ -19,6 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
     { label: 'Projects', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     { label: 'Hackathons', href: '#achievements' },
+    { label: 'AI × Quantum', href: '#ai-quantum' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -35,7 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
         setIsOverHero(scrollY < 600);
       }
 
-      const sections = ['hero', 'about', 'projects', 'skills', 'achievements', 'contact'];
+      const sections = ['hero', 'about', 'projects', 'skills', 'achievements', 'ai-quantum', 'contact'];
       const scrollPosition = scrollY + 160;
 
       for (let i = sections.length - 1; i >= 0; i--) {

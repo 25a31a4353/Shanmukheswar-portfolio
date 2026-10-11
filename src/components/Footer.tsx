@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowUp, Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { personalInfo } from '../data/portfolioData';
+import { MotionCard } from './motion/MotionCard';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -9,8 +10,11 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="border-t border-slate-200/80 bg-slate-100/70 py-12 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="border-t border-slate-200/80 bg-slate-100/70 py-12 relative overflow-hidden">
+      {/* Subtle fine dot texture for calm end of journey */}
+      <div className="absolute inset-0 bg-dots-refined opacity-25 pointer-events-none" aria-hidden="true" />
+      
+      <MotionCard direction="up" delay={60} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
           {/* Brand Monogram & Meta */}
@@ -74,7 +78,7 @@ export const Footer: React.FC = () => {
           </div>
 
         </div>
-      </div>
+      </MotionCard>
     </footer>
   );
 };

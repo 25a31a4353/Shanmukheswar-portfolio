@@ -1,33 +1,84 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ArrowDownRight, FileText, Terminal, Atom, Sparkles, MapPin, ChevronDown } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { personalInfo } from '../data/portfolioData';
+import { useReducedMotion, useIsMobile } from '../motion/useReducedMotion';
 
 interface HeroProps {
   onOpenResume: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const prefersReduced = useReducedMotion();
+  const isMobile = useIsMobile();
+
   const scrollToProjects = () => {
     const el = document.getElementById('projects');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    if (prefersReduced) return;
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (!sectionRef.current) return;
+          const rect = sectionRef.current.getBoundingClientRect();
+          const height = rect.height || window.innerHeight;
+          // Progress from 0 (at top) to 1 (when scrolled past hero)
+          const p = Math.max(0, Math.min(1, -rect.top / height));
+          setScrollProgress(p);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prefersReduced]);
+
+  // Derived 3D retreat values (subtle, camera moving away)
+  const retreatScale = prefersReduced ? 1 : 1 - scrollProgress * 0.05;
+  const retreatZ = prefersReduced ? 0 : -scrollProgress * (isMobile ? 30 : 80);
+  const retreatRotateX = prefersReduced ? 0 : scrollProgress * (isMobile ? 0.6 : 1.5);
+  const retreatOpacity = prefersReduced ? 1 : 1 - scrollProgress * 0.22;
+  const gridTranslateY = prefersReduced ? 0 : scrollProgress * 65;
+
   return (
     <section
+      ref={sectionRef}
       id="hero"
-      className="relative min-h-[95vh] pt-28 pb-12 lg:pt-36 lg:pb-16 flex flex-col justify-between overflow-hidden bg-[#07090e] text-white border-b border-white/[0.08]"
+      className="relative min-h-[95vh] pt-28 pb-12 lg:pt-36 lg:pb-16 flex flex-col justify-between overflow-hidden bg-[#07090e] text-white border-b border-white/[0.08] perspective-1400"
     >
-      {/* Precision Hero Ambient Grid & Vignette */}
-      <div className="absolute inset-0 bg-grid-refined -z-20 opacity-25 pointer-events-none" />
+      {/* Precision Hero Ambient Grid & Vignette with Depth Parallax */}
+      <div
+        className="absolute inset-0 bg-grid-refined -z-20 opacity-25 pointer-events-none will-change-transform"
+        style={{
+          transform: prefersReduced
+            ? undefined
+            : `translate3d(0, ${gridTranslateY.toFixed(1)}px, -120px) scale(${1 + scrollProgress * 0.05})`,
+          transition: 'transform 0.05s linear',
+        }}
+        aria-hidden="true"
+      />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-96 hero-spotlight -z-20 pointer-events-none" />
 
-      {/* DESKTOP FULL-BLEED RIGHT PORTRAIT PHOTO (matching reference site) */}
-      <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[48%] xl:w-[50%] h-full pointer-events-none z-0 overflow-hidden">
+      {/* DESKTOP FULL-BLEED RIGHT PORTRAIT PHOTO (matching reference site, visually anchored) */}
+      <div
+        className="hidden lg:block absolute right-0 top-0 bottom-0 w-[48%] xl:w-[50%] h-full pointer-events-none z-0 overflow-hidden"
+        style={{
+          opacity: prefersReduced ? 1 : Math.max(0.7, 1 - scrollProgress * 0.3),
+          transition: 'opacity 0.1s linear',
+        }}
+      >
         <img
           src="/profile.jpg"
           alt="Shanmukheswar Medicharla - AI Engineer & Builder"
-          fetchPriority="high"
           loading="eager"
           className="w-full h-full object-cover object-[center_18%] select-none scale-[1.02] transition-transform duration-700 hover:scale-105"
         />
@@ -38,7 +89,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#07090e]/80 via-transparent to-transparent via-10%" />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 my-auto">
+      <div
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 my-auto preserve-3d will-change-transform"
+        style={{
+          transform: prefersReduced
+            ? undefined
+            : `perspective(1400px) scale(${retreatScale.toFixed(3)}) translateZ(${retreatZ.toFixed(1)}px) rotateX(${retreatRotateX.toFixed(2)}deg)`,
+          opacity: retreatOpacity,
+          transition: 'transform 0.08s ease-out, opacity 0.1s ease-out',
+        }}
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           {/* Left Column: Hero Content (7 columns on desktop) */}
@@ -119,7 +179,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                 src="/profile.jpg"
                 alt="Shanmukheswar Medicharla"
                 loading="eager"
-                fetchPriority="high"
                 className="w-full h-full object-cover object-[center_18%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent pointer-events-none" />

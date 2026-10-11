@@ -8,6 +8,10 @@ import {
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { personalInfo } from '../data/portfolioData';
+import { SectionTransition } from './motion/SectionTransition';
+import { ThreeDCard } from './motion/ThreeDCard';
+import { MotionCard } from './motion/MotionCard';
+import { ParallaxLayer } from './motion/ParallaxLayer';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -46,25 +50,26 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 sm:py-32 relative border-t border-slate-200/80 dark:border-white/[0.05] bg-slate-50/50 dark:bg-transparent">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header with Ranade Font */}
-        <div className="max-w-3xl mb-10">
-          <div className="eyebrow-chip inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
-            <span>07 · INITIATE CONTACT</span>
+    <SectionTransition type="calm-destination" perspective="1200px" id="contact">
+      <section className="py-24 sm:py-32 relative border-t border-slate-200/80 dark:border-white/[0.05] bg-slate-50/50 dark:bg-transparent">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Header with Ranade Font & Emerging Depth */}
+          <div className="max-w-3xl mb-10">
+            <div className="eyebrow-chip inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
+              <span>08 · INITIATE CONTACT</span>
+            </div>
+            <h2 className="font-ranade text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
+              Let's Build Something <span className="text-sky-700">Meaningful.</span>
+            </h2>
+            <p className="text-slate-600 text-sm sm:text-base mt-2">
+              Open for AI engineering discussions, hackathon team-ups, and technical collaboration.
+            </p>
           </div>
-          <h2 className="font-ranade text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
-            Let's Build Something <span className="text-sky-700">Meaningful.</span>
-          </h2>
-          <p className="text-slate-600 text-sm sm:text-base mt-2">
-            Open for AI engineering discussions, hackathon team-ups, and technical collaboration.
-          </p>
-        </div>
 
-        {/* 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* 2-Column Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
           {/* Left Column: Direct channels & Quick Connect (5 cols) */}
           <div className="lg:col-span-5 space-y-5">
@@ -295,5 +300,6 @@ export const Contact: React.FC = () => {
 
       </div>
     </section>
+  </SectionTransition>
   );
 };

@@ -12,6 +12,10 @@ import {
   GitCommit 
 } from 'lucide-react';
 import { achievementsData } from '../data/portfolioData';
+import { SectionTransition } from './motion/SectionTransition';
+import { ThreeDCard } from './motion/ThreeDCard';
+import { MotionCard } from './motion/MotionCard';
+import { ParallaxLayer } from './motion/ParallaxLayer';
 
 type CategoryFilter = 'All' | 'Hackathon' | 'Achievement' | 'Leadership' | 'Certification' | 'Technical Event';
 
@@ -71,7 +75,8 @@ export const Achievements: React.FC = () => {
   };
 
   return (
-    <section id="achievements" className="py-20 sm:py-28 relative border-t border-slate-200/80 bg-slate-50/50">
+    <SectionTransition type="timeline-construct" perspective="1200px" id="achievements">
+      <section className="py-20 sm:py-28 relative border-t border-slate-200/80 bg-slate-50/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header with Ranade Font */}
@@ -133,40 +138,54 @@ export const Achievements: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {spotlightItems.slice(0, 4).map((item) => {
                 const meta = getCategoryMeta(item.category);
+                const isIbmFinale = item.id === 'ibm-regional-hackathon';
+
                 return (
-                  <div
+                  <ThreeDCard
                     key={`spotlight-${item.id}`}
-                    className="group relative p-4 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-400/60 transition-all duration-200 hover:-translate-y-0.5 shadow-xs hover:shadow-md flex flex-col justify-between"
+                    maxTilt={5}
+                    depthZ={isIbmFinale ? 18 : 12}
+                    className="h-full rounded-2xl"
                   >
-                    <div>
-                      <div className="flex items-center justify-between mb-2.5">
-                        <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100">
-                          {meta.icon}
+                    <div
+                      className={`group relative p-4 h-full rounded-2xl bg-white dark:bg-[#0c0e15] border transition-all duration-200 flex flex-col justify-between shadow-xs hover:shadow-md ${
+                        isIbmFinale
+                          ? 'border-amber-400 dark:border-amber-500/60 ring-2 ring-amber-400/20 shadow-amber-500/10'
+                          : 'border-slate-200/90 dark:border-white/[0.08] hover:border-amber-400/60'
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-2.5">
+                          <ParallaxLayer depthZ={18} className="p-1.5 rounded-lg bg-slate-50 dark:bg-[#11141f] border border-slate-100 dark:border-white/[0.08]">
+                            {meta.icon}
+                          </ParallaxLayer>
+                          <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md border font-medium ${meta.color}`}>
+                            {item.badge || item.category}
+                          </span>
                         </div>
-                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md border font-medium ${meta.color}`}>
-                          {item.badge || item.category}
-                        </span>
+
+                        <ParallaxLayer depthZ={12}>
+                          <h3 className="font-ranade text-sm font-bold text-slate-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors leading-snug">
+                            {item.title}
+                          </h3>
+                        </ParallaxLayer>
+                        <div className="text-[11px] font-mono text-slate-500 mt-0.5 mb-2">
+                          {item.organization}
+                        </div>
+
+                        <p className="text-xs text-slate-600 dark:text-slate-300 leading-normal line-clamp-2">
+                          {item.description}
+                        </p>
                       </div>
 
-                      <h3 className="font-ranade text-sm font-bold text-slate-900 group-hover:text-amber-700 transition-colors leading-snug">
-                        {item.title}
-                      </h3>
-                      <div className="text-[11px] font-mono text-slate-500 mt-0.5 mb-2">
-                        {item.organization}
-                      </div>
-
-                      <p className="text-xs text-slate-600 leading-normal line-clamp-2">
-                        {item.description}
-                      </p>
+                      {item.highlight && (
+                        <ParallaxLayer depthZ={16} className="mt-3 pt-2.5 border-t border-slate-100 dark:border-white/[0.06] text-[11px] font-mono text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                          <span className="truncate font-medium">{item.highlight}</span>
+                        </ParallaxLayer>
+                      )}
                     </div>
-
-                    {item.highlight && (
-                      <div className="mt-3 pt-2.5 border-t border-slate-100 text-[11px] font-mono text-emerald-700 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                        <span className="truncate font-medium">{item.highlight}</span>
-                      </div>
-                    )}
-                  </div>
+                  </ThreeDCard>
                 );
               })}
             </div>
@@ -190,137 +209,156 @@ export const Achievements: React.FC = () => {
           ))}
         </div>
 
-        {/* VIEW 1: Grid Mode */}
+        {/* VIEW 1: Grid Mode with 3D emergence */}
         {viewMode === 'grid' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredAchievements.map((item) => {
+            {filteredAchievements.map((item, idx) => {
               const meta = getCategoryMeta(item.category);
               return (
-                <div
-                  key={item.id}
-                  className="group relative flex flex-col justify-between p-6 rounded-xl bg-white dark:bg-[#0c0e15] border border-slate-200/80 dark:border-white/[0.07] hover:border-sky-500/40 dark:hover:border-sky-500/30 transition-all duration-200 hover:-translate-y-1 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-xl hover:shadow-slate-200/70 dark:shadow-none dark:hover:shadow-black/60"
-                >
-                  <div>
-                    {/* Header: Icon, Category & Date */}
-                    <div className="flex items-center justify-between gap-3 mb-4">
-                      <div className="p-2 rounded-lg bg-slate-50 dark:bg-[#11141f] border border-slate-200/80 dark:border-white/[0.08]">
-                        {meta.icon}
+                <MotionCard key={item.id} delay={idx * 40} depth="medium">
+                  <ThreeDCard maxTilt={4} depthZ={12} className="h-full rounded-xl">
+                    <div
+                      className="group relative flex flex-col justify-between h-full p-6 rounded-xl bg-white dark:bg-[#0c0e15] border border-slate-200/80 dark:border-white/[0.07] hover:border-sky-500/40 dark:hover:border-sky-500/30 transition-all duration-200 shadow-xs hover:shadow-md"
+                    >
+                      <div>
+                        {/* Header: Icon, Category & Date */}
+                        <div className="flex items-center justify-between gap-3 mb-4">
+                          <ParallaxLayer depthZ={18} className="p-2 rounded-lg bg-slate-50 dark:bg-[#11141f] border border-slate-200/80 dark:border-white/[0.08]">
+                            {meta.icon}
+                          </ParallaxLayer>
+                          <div className="flex items-center gap-2">
+                            {item.badge && (
+                              <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${meta.color}`}>
+                                {item.badge}
+                              </span>
+                            )}
+                            <span className="text-xs font-mono text-slate-500">
+                              {item.date}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Title & Organization */}
+                        <ParallaxLayer depthZ={10}>
+                          <h3 className="font-ranade text-base font-bold text-slate-900 dark:text-white group-hover:text-sky-700 dark:group-hover:text-sky-400 transition-colors leading-snug">
+                            {item.title}
+                          </h3>
+                        </ParallaxLayer>
+                        <p className="text-xs font-mono text-slate-500 mt-0.5 mb-2.5">
+                          {item.organization}
+                        </p>
+
+                        {/* Description */}
+                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
+                          {item.description}
+                        </p>
                       </div>
-                      <div className="flex items-center gap-2">
-                        {item.badge && (
-                          <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${meta.color}`}>
-                            {item.badge}
-                          </span>
+
+                      {/* Bottom Highlight & Optional Link */}
+                      <ParallaxLayer depthZ={14} className="pt-3 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-xs font-mono">
+                        {item.highlight ? (
+                          <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+                            <span className="truncate">{item.highlight}</span>
+                          </div>
+                        ) : (
+                          <span className="text-slate-500">Verified Technical Event</span>
                         )}
-                        <span className="text-xs font-mono text-slate-500">
-                          {item.date}
-                        </span>
-                      </div>
+
+                        {item.credentialUrl && (
+                          <a
+                            href={item.credentialUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-sky-600 hover:text-sky-800 dark:text-sky-400 dark:hover:text-white transition-colors"
+                            aria-label="View Credential"
+                          >
+                            <span>Profile</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </ParallaxLayer>
                     </div>
-
-                    {/* Title & Organization */}
-                    <h3 className="font-ranade text-base font-bold text-slate-900 group-hover:text-sky-700 transition-colors leading-snug">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs font-mono text-slate-500 mt-0.5 mb-2.5">
-                      {item.organization}
-                    </p>
-
-                    {/* Description - Minimal & Scannable */}
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
-                      {item.description}
-                    </p>
-                  </div>
-
-                  {/* Bottom Highlight & Optional Link */}
-                  <div className="pt-3 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-xs font-mono">
-                    {item.highlight ? (
-                      <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
-                        <span className="truncate">{item.highlight}</span>
-                      </div>
-                    ) : (
-                      <span className="text-slate-500">Verified Technical Event</span>
-                    )}
-
-                    {item.credentialUrl && (
-                      <a
-                        href={item.credentialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sky-600 hover:text-sky-800 dark:text-sky-400 dark:hover:text-white transition-colors"
-                        aria-label="View Credential"
-                      >
-                        <span>Profile</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
-                  </div>
-                </div>
+                  </ThreeDCard>
+                </MotionCard>
               );
             })}
           </div>
         )}
 
-        {/* VIEW 2: Timeline Stream Mode */}
+        {/* VIEW 2: Timeline Stream Mode with self-drawing line and popping nodes */}
         {viewMode === 'timeline' && (
-          <div className="relative border-l border-slate-300 dark:border-white/[0.1] ml-2 sm:ml-8 pl-4 sm:pl-8 space-y-8 sm:space-y-10 py-4">
-            {filteredAchievements.map((item) => {
+          <div className="relative ml-2 sm:ml-8 pl-6 sm:pl-10 space-y-8 sm:space-y-10 py-4">
+            {/* Self-drawing vertical timeline spine */}
+            <div
+              className="absolute left-[7px] sm:left-[15px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-sky-500 via-sky-400 to-indigo-500 rounded-full opacity-70"
+              aria-hidden="true"
+            />
+
+            {filteredAchievements.map((item, idx) => {
               const meta = getCategoryMeta(item.category);
+              const isIbm = item.id === 'ibm-regional-hackathon';
+
               return (
-                <div key={`timeline-${item.id}`} className="relative group">
-                  {/* Timeline Node Point */}
-                  <div className="absolute -left-[23px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-white dark:bg-[#0c0e15] border-2 border-sky-600 dark:border-sky-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-sm">
-                    <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-sky-600 dark:bg-white" />
-                  </div>
-
-                  {/* Timeline Card */}
-                  <div className="p-5 sm:p-6 rounded-xl bg-white dark:bg-[#0c0e15] border border-slate-200/80 dark:border-white/[0.07] hover:border-sky-500/40 dark:hover:border-sky-500/30 transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-md">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${meta.color}`}>
-                          {item.badge || item.category}
-                        </span>
-                        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                          {item.date}
-                        </span>
-                      </div>
-                      <div className="text-xs font-mono text-slate-500">
-                        {item.organization}
-                      </div>
+                <MotionCard key={`timeline-${item.id}`} delay={idx * 50} direction="depth">
+                  <div className="relative group">
+                    {/* Timeline Node Point with accent glow */}
+                    <div className="absolute -left-[30px] sm:-left-[38px] top-2 w-4 h-4 rounded-full bg-white dark:bg-[#0c0e15] border-2 border-sky-600 dark:border-sky-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-sm group-hover:shadow-[0_0_10px_rgba(2,132,199,0.5)] z-10">
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-600 dark:bg-white" />
                     </div>
 
-                    <h3 className="font-ranade text-base font-bold text-slate-900 mt-1">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
-                      {item.description}
-                    </p>
-
-                    <div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-3 border-t border-slate-100 dark:border-white/[0.06] text-xs font-mono">
-                      {item.highlight && (
-                        <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                          <span className="truncate">{item.highlight}</span>
+                    {/* Timeline Card */}
+                    <div className={`p-5 sm:p-6 rounded-xl bg-white dark:bg-[#0c0e15] border transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-md ${
+                      isIbm
+                        ? 'border-amber-400 dark:border-amber-500/60 ring-1 ring-amber-400/30'
+                        : 'border-slate-200/80 dark:border-white/[0.07] hover:border-sky-500/40 dark:hover:border-sky-500/30'
+                    }`}>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${meta.color}`}>
+                            {item.badge || item.category}
+                          </span>
+                          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                            {item.date}
+                          </span>
                         </div>
-                      )}
+                        <div className="text-xs font-mono text-slate-500">
+                          {item.organization}
+                        </div>
+                      </div>
 
-                      {item.credentialUrl && (
-                        <a
-                          href={item.credentialUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-sky-600 hover:text-sky-800 dark:text-sky-400 dark:hover:text-white transition-colors"
-                          aria-label={`Verify credential for ${item.title}`}
-                        >
-                          <span>Verify Profile</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      )}
+                      <h3 className="font-ranade text-base font-bold text-slate-900 dark:text-white mt-1">
+                        {item.title}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                        {item.description}
+                      </p>
+
+                      <div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-3 border-t border-slate-100 dark:border-white/[0.06] text-xs font-mono">
+                        {item.highlight && (
+                          <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                            <span className="truncate">{item.highlight}</span>
+                          </div>
+                        )}
+
+                        {item.credentialUrl && (
+                          <a
+                            href={item.credentialUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-sky-600 hover:text-sky-800 dark:text-sky-400 dark:hover:text-white transition-colors"
+                            aria-label={`Verify credential for ${item.title}`}
+                          >
+                            <span>Verify Profile</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </MotionCard>
               );
             })}
           </div>
@@ -328,5 +366,6 @@ export const Achievements: React.FC = () => {
 
       </div>
     </section>
+  </SectionTransition>
   );
 };
